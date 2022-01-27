@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %} Замок Гарри Потера! {% endblock %}
+
+{% block content %}
+
+<h1 class="h3 mb-3 fw-normal">Добро пожаловать в Игру</h1>
+<h2 class="h5 mb-3 fw-normal">Выберите размер помещения</h2>
+
+<form action="" method="post">
+{{ form.hidden_tag() }}
+
+<div class="container">
+<div class="row justify-content-md-center mb-4">
+
+    <div class="col-md-1">
+        <label class="form-label">{{ form.size.label }}</label>
+        {{ form.size(class="form-control form-control-ld") }}
+    </div> 
+          {% for err in form.size.label.errors %}
+            <span style="color: #ff4f1f">{{ err }}</span>
+          {% endfor %}
+</div></div>
+
+{{ form.submit(class="btn btn-outline-secondary") }}
+
+</form>
+
+{% endblock %}

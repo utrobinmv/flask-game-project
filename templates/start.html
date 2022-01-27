@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block title %} Играем {% endblock %}
+
+{% block content %}
+
+<a href="/" class="btn btn-outline-secondary btn-sm" role="button">Вернуться на главную</a>
+
+<h1 class="h3 mt-3 mb-3 fw-normal">Вы пытаетесь выбраться на улицу</h1>
+
+<div class="row justify-content-md-center">
+    Сейчас Вы находитесь в комнате <p><b>{{ current_room }}</b></p>
+
+</div>
+
+<div class="d-flex justify-content-sm-center">
+    <span>
+        <table class="table table-bordered border-dark">
+        {% for i in range(rooms|length) %}
+            <tr>
+                {% for j in range(rooms[i]|length) %}
+                    {% if i == position[0] and j == position[1] %}
+                        <td class="table-danger"></td>
+                    {% elif rooms[i][j] >= 1 %}
+                        <td class="table-light"></td>
+                    {% elif rooms[i][j] == 0 %}
+                        <td class="table-dark"></td>
+                    {% else %}
+                        <td class="table-success"></td>
+                    {% endif %}
+                {% endfor %}
+            </tr>
+        {% endfor %}
+        </table>
+    </span>
+</div>
+<div class="row mb-3 justify-content-md-center">
+    (выходы обозначены зеленым цветом)
+</div>
+
+<form action="" method="post">
+{{ form.hidden_tag() }}
+
+<div class="row justify-content-md-center mb-4">
+    <label class="form-label">{{ form.way.label }}</label>
+    <div class="col-md-2">
+        {{ form.way(class="form-select form-select-ld") }}
+    </div>
+    <label class="form-label">{{ form.number_steps.label }}</label>
+    <div class="col-md-2">
+        {{ form.number_steps(class="form-control form-control-ld") }}
+    </div>
+</div>
+
+{% if current_room != "Выход" %}
+
+{{ form.submit(class="btn btn-outline-secondary") }}
+</form>
+
+{% endif %}
+
+{% if message %}
+    <div class="row justify-content-md-center mt-4 mb-4">
+    <div class="d-grid col-md-5">
+
+        <div class="{% if current_room != 'Выход' %} alert alert-warning
+                    {% else %} alert alert-success {% endif %}" role="alert">
+
+          {{ message }}
+        </div>
+    </div>
+    </div>
+{% endif %}
+
+{% if current_room == "Выход" %}
+<a href="/" class="btn btn-outline-secondary btn-sm" role="button">Начать заново</a>
+{% endif %}
+
+{% endblock %}
