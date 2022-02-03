@@ -85,7 +85,7 @@ class PotterCastle(metaclass=SingletonMeta):
     def start_position(self):
         self.position = self.__height // 2, self.__width // 2
         while self.rooms[self.position[0]][self.position[1]] == 0:
-            self.move_position(random.randint(0,len(self.waysname)-1))
+            self.move_position(str(random.randint(0,len(self.waysname)-1)))
         return self.position
 
     def check_for_move(self, way):
@@ -95,6 +95,7 @@ class PotterCastle(metaclass=SingletonMeta):
             "2": (0, -1),
             "3": (0, 1),
         }
+        #print('way',way)
         step = ways[way]
         new_pos = (step[0] + self.position[0], step[1] + self.position[1])
         if self.__height < new_pos[0] or self.__width < new_pos[1]:
